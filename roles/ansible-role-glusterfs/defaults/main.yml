@@ -1,0 +1,17 @@
+---
+glusterfs_daemon: glusterd
+
+# For Ubuntu.
+glusterfs_default_release: ""
+glusterfs_ppa_use: true
+glusterfs_ppa_version: "7"
+
+# For Debian.
+glusterfs_gpg_key_version: "7"
+glusterfs_deb_version: "LATEST"
+
+directory_path: "/glusterfs/swarm"
+
+name_vol: "swarm_vol"
+
+mount_point: "/home/swarm_data"

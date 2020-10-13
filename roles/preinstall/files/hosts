@@ -1,0 +1,7 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.0.34.3  test-centos7-node1  
+10.0.34.4  test-centos7-node2 
+10.0.34.2  test-centos7-node3
+

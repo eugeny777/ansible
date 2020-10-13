@@ -1,0 +1,60 @@
+#- name: stop gluster volume
+#  gluster.gluster.gluster_volume:
+#    state: stopped
+#    name:  "{{ name_vol }}"
+
+#- name: Remount a mounted volume
+#  ansible.posix.mount:
+#    path: "/home/swarm/"
+#    state: remounted
+
+
+#- name: Remove the bricks from gluster volume
+#  gluster.gluster.gluster_volume:
+#    state: present
+#    name: "{{ name_vol }}"
+#    bricks: "{{ directory_path }}" 
+#    cluster:
+#      - 10.0.34.3
+#      - 10.0.34.4
+#      - 10.0.34.2
+#    force: true
+#  run_once: true
+
+- name: create mount  directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ mount_point }}"
+    - "{{ directory_path }}"
+
+
+- name: create gluster volume
+  gluster.gluster.gluster_volume:
+    state: present
+    name: "{{ name_vol }}"
+    bricks: "{{ directory_path }}"
+    replicas: 3
+#    rebalance: yes
+    cluster:
+      - 10.0.34.3
+      - 10.0.34.4
+      - 10.0.34.2
+    force: true
+  run_once: true
+
+
+- name: start gluster volume
+  gluster.gluster.gluster_volume:
+    state: started
+    name: "{{ name_vol }}"
+
+
+- name: Mount an glusterfs  "{{ name_vol }}"  volume
+  ansible.posix.mount:
+    src: "localhost:/swarm_vol"
+    path: "{{ mount_point }}"
+    opts: defaults,_netdev,noauto,x-systemd.automount
+    state: mounted
+    fstype: glusterfs

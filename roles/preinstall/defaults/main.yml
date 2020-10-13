@@ -1,0 +1,3 @@
+---
+# defaults file for preinstall
+hostname: "{{ ansible_fqdn }}"

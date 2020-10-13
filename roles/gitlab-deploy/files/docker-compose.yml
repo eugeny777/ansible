@@ -1,0 +1,46 @@
+version: "3.6"
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    volumes:
+      - /home/swarm_data/data:/var/opt/gitlab
+      - /home/swarm_data/logs:/var/log/gitlab
+      - /home/swarm_data/config:/etc/gitlab
+      - /var/run/docker.sock:/var/run/docker.sock
+    #ports:
+    #  - "2222:22"
+    #  - "8888:80"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+    configs:
+      - source: gitlab
+        target: /omnibus_config.rb
+    secrets:
+      - gitlab_root_password
+    deploy:
+      mode: replicated
+      replicas: 1 
+      placement:
+        constraints:
+          - node.role == manager
+  haproxy: 
+    image: haproxy:latest
+    volumes: 
+      - /root/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    #dns:
+    #  - 127.0.0.11
+    ports:
+      - "80:80"
+#gitlab-runner:
+  #  image: gitlab/gitlab-runner:alpine
+  #  deploy:
+  #    mode: replicated
+  #    replicas: 3 
+
+configs:
+  gitlab:
+    file: ./gitlab.rb
+secrets:
+  gitlab_root_password:
+    file: ./root_password.txt

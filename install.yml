@@ -1,0 +1,8 @@
+--- 
+ - name: preinstall
+   hosts: swarm
+   roles: 
+     - preinstall
+     - ansible-role-docker
+     - ansible-role-glusterfs
+     - gitlab-deploy
