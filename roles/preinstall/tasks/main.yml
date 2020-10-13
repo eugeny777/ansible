@@ -45,13 +45,3 @@
      template: src=iptables.j2 dest=/etc/sysconfig/iptables
 
    - service: name=iptables state=restarted
-
-   - name: add to host 
-     lineinfile:
-       path: /etc/hosts
-       line: "{{ item }}"
-     with_items:
-       - "10.0.34.3  test-centos7-node1"
-       - "10.0.34.4  test-centos7-node2"
-       - "10.0.34.2  test-centos7-node3"
-

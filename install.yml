@@ -3,6 +3,6 @@
    hosts: swarm
    roles: 
      - preinstall
-     - ansible-role-docker
-     - ansible-role-glusterfs
-     - gitlab-deploy
+   #  - ansible-role-docker
+   #  - ansible-role-glusterfs
+   #  - gitlab-deploy

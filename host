@@ -1,5 +1,4 @@
 [swarm]
-test-centos7-node1
-test-centos7-node2
-test-centos7-node3
-
+swarm-01.local
+swarm-02.local
+swarm-03.local
